@@ -1,15 +1,13 @@
 package com.example.hellospringboot;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/")
+@Controller  // Use @Controller instead of @RestController
 public class WelcomeController {
 
-    @GetMapping
+    @GetMapping("/")
     public String welcome() {
-        return "Welcome to Spring Boot!";
+        return "index"; // Spring Boot will look for templates/index.html
     }
 }
