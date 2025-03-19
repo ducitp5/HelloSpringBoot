@@ -1,4 +1,4 @@
-package com.example.hellospringboot;
+package com.example.hellospringboot.model;
 
 public class User {
     private String name;
