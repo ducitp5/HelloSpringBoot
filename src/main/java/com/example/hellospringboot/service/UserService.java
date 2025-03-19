@@ -1,26 +1,25 @@
 package com.example.hellospringboot.service;
 
 import com.example.hellospringboot.model.User;
+import com.example.hellospringboot.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private final List<User> users = new ArrayList<>();
+    private final UserRepository userRepository;
 
-    public UserService() {
-        users.add(new User("John Doe", "john@example.com"));
-        users.add(new User("Jane Doe", "jane@example.com"));
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public List<User> getAllUsers() {
-        return users;
+        return userRepository.findAll();
     }
 
     public void addUser(User user) {
-        users.add(user);
+        userRepository.save(user);
     }
 }
