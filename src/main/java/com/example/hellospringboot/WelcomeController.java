@@ -11,6 +11,6 @@ public class WelcomeController {
 
     @GetMapping("/user")
     public User getUser() {
-        return new User("John Doe", 25, "johndoe@example.com");
+        return new User("John Doe", "johndoe@example.com");
     }
 }
