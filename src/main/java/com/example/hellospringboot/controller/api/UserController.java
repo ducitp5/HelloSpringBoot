@@ -29,4 +29,20 @@ public class UserController {
         userService.addUser(user);
         return ResponseEntity.ok("User added successfully!");
     }
+
+    // ✅ Update User (PUT)
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        boolean isUpdated = userService.updateUser(id, updatedUser);
+        return isUpdated ? ResponseEntity.ok("User updated successfully!")
+                : ResponseEntity.notFound().build();
+    }
+
+    // ✅ Delete User (DELETE)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        boolean isDeleted = userService.deleteUser(id);
+        return isDeleted ? ResponseEntity.ok("User deleted successfully!")
+                : ResponseEntity.notFound().build();
+    }
 }

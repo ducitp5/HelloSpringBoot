@@ -51,12 +51,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
         <!-- Spring Boot JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -72,12 +66,6 @@
             <systemPath>${project.basedir}/src/main/resources/libs/mysql-connector-j-9.2.0.jar</systemPath>
         </dependency>
 
-          <!-- Thymeleaf (for rendering pages) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -88,5 +76,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
