@@ -45,4 +45,28 @@ public class UserController {
         return isDeleted ? ResponseEntity.ok("User deleted successfully!")
                 : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/search")
+    public String searchUser(@RequestParam String name, @RequestParam(required = false) Integer age) {
+        return "Searching for user: " + name + (age != null ? " with age: " + age : "");
+    }
+
+    @GetMapping("/{id}")
+    public String getUserById(@PathVariable Long id) {
+        return "User ID: " + id;
+    }
+
+    @PostMapping("/create")
+    public String createUser(@RequestBody User user) {
+        return "User created: " + user.getName();
+    }
+
+    @PutMapping("update/{id}")
+    public String updateUser(
+            @PathVariable Long id,
+            @RequestParam(required = false, defaultValue = "vai tro") String role,
+            @RequestBody User user
+    ) {
+        return "Updating user ID: " + id + " with role: " + role + " to name: " + user.getName();
+    }
 }

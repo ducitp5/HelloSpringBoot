@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .welcome {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<h1 class="welcome">Welcome to the Home Page</h1>
+<!-- Display the 'name' attribute passed from the controller -->
+<p>Hello, <span th:text="${name}"></span>!</p>
+
+<div>
+    <p th:utext="${htmlContent}"></p>
+    <p>Current time: <span th:text="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm')}"></span></p>
+</div>
+</body>
+</html>
