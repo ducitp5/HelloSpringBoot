@@ -19,4 +19,10 @@ public class SeederController {
         dataSeeder.runSeeder();
         return "Seeder executed successfully!";
     }
+
+    @GetMapping("/run/profile")
+    public String seedProfile() {
+        dataSeeder.seedProfile();
+        return "Seeder profile successfully!";
+    }
 }

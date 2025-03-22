@@ -1,7 +1,9 @@
 package com.example.hellospringboot.controller.api;
 
 import com.example.hellospringboot.model.User;
+import com.example.hellospringboot.repository.UserRepository;
 import com.example.hellospringboot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,9 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -52,8 +57,10 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String getUserById(@PathVariable Long id) {
-        return "User ID: " + id;
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/create")

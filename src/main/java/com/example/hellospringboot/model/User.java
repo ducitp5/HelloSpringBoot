@@ -1,6 +1,9 @@
 package com.example.hellospringboot.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -26,4 +29,27 @@ public class User {
     public void setId(Long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setEmail(String email) { this.email = email; }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonManagedReference
+    private List<Post> posts = new ArrayList<>();
+
+    public List<Post> getPosts() { return posts; }
+
+    // Helper method to add a post
+    public void addPost(Post post) {
+        posts.add(post);
+        post.setUser(this);
+    }
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private Profile profile;
+
+    public Profile getProfile() { return profile; }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+        profile.setUser(this);
+    }
 }
