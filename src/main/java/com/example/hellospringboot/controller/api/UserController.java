@@ -63,6 +63,21 @@ public class UserController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{id}/select")
+    public ResponseEntity<User> getUserWithSelectedRelationShipById(@PathVariable Long id) {
+        return userRepository.findById(id)
+            .map(user -> {
+                User responseUser = new User(user.getName(), user.getEmail());
+
+                responseUser.setId(user.getId()); // Ensure ID is set
+                responseUser.setProfile(user.getProfile()); // Include Profile
+//                responseUser.getPosts().addAll(user.getPosts()); // Include Posts
+
+                return ResponseEntity.ok(responseUser);
+            })
+            .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("/create")
     public String createUser(@RequestBody User user) {
         return "User created: " + user.getName();

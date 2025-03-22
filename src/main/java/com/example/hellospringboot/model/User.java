@@ -1,5 +1,6 @@
 package com.example.hellospringboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
@@ -32,6 +34,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonManagedReference
+    @JsonIgnoreProperties("user") // Avoid recursion
     private List<Post> posts = new ArrayList<>();
 
     public List<Post> getPosts() { return posts; }
@@ -43,7 +46,8 @@ public class User {
     }
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnoreProperties("user") // Avoid recursion
     private Profile profile;
 
     public Profile getProfile() { return profile; }
