@@ -1,13 +1,16 @@
 package com.example.hellospringboot.controller.api;
 
 import com.example.hellospringboot.model.User;
+import com.example.hellospringboot.dto.ResponseDTO;
 import com.example.hellospringboot.repository.UserRepository;
 import com.example.hellospringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController("userApiController")
 @RequestMapping("/api/users")
@@ -90,5 +93,25 @@ public class UserController {
             @RequestBody User user
     ) {
         return "Updating user ID: " + id + " with role: " + role + " to name: " + user.getName();
+    }
+
+
+    @PostMapping("/getdata")
+    public ResponseEntity<Map<String, Object>> getData(@RequestBody Map<String, Object> payload) {
+        String name = (String) payload.get("name");
+        int age = (int) payload.get("age");
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("receivedData", payload);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/getdto")
+    public ResponseEntity<ResponseDTO> getDTO(@RequestBody Map<String, Object> payload) {
+
+        ResponseEntity<ResponseDTO> $response = ResponseEntity.ok(new ResponseDTO("success", payload));
+        return $response;
     }
 }
