@@ -45,6 +45,15 @@ public class User {
         post.setUser(this);
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setUser(this);
+    }
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JsonManagedReference
     @JsonIgnoreProperties("user") // Avoid recursion
@@ -56,4 +65,5 @@ public class User {
         this.profile = profile;
         profile.setUser(this);
     }
+
 }

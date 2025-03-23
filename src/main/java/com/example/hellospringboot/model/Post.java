@@ -3,7 +3,12 @@ package com.example.hellospringboot.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -35,4 +40,15 @@ public class Post {
 //    @JsonBackReference
 //    @JsonIgnore
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference // Allows serialization of comments
+    private List<Comment> comments = new ArrayList<>();
+
+    public List<Comment> getComments() { return comments; }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPost(this);
+    }
 }
