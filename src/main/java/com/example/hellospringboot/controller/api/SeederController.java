@@ -25,4 +25,10 @@ public class SeederController {
         dataSeeder.seedProfile();
         return "Seeder profile successfully!";
     }
+
+    @GetMapping("/run/comment")
+    public String seedComment() {
+        int nbrComments = dataSeeder.seedComment();
+        return nbrComments +" Seeder comment successfully!";
+    }
 }
