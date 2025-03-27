@@ -19,6 +19,11 @@ public class User {
     public String name;
     public String email;
 
+//    public Long getId() { return id; }
+//    public String getName() { return name; }
+//    public String getEmail() { return email; }
+//    public Profile getProfile() { return profile; }
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Post> posts;
