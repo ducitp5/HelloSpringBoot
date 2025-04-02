@@ -20,12 +20,7 @@ public class Post {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Comment> comments;
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    User autorUser;
 }
