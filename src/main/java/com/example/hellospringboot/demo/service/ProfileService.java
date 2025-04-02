@@ -16,7 +16,7 @@ public class ProfileService {
     private ProfileRepository profileRepository;
 
     public Optional<Profile> getProfileWithRelations(Long id) {
-        return profileRepository.findById(id);
+        return profileRepository.findByidProfile(id);
     }
 
     public List<Profile> getAllProfilesWithRelations() {

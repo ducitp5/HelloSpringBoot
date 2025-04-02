@@ -28,8 +28,11 @@ public class ProfileController {
         return profileService.getAllProfilesWithRelations();
     }
 
+    // Default API: returns profile with only user info
     @GetMapping("/{id}")
     public Optional<Profile> getProfileWithRelations(@PathVariable Long id) {
+        return profileService.getProfileWithRelations(id);
+    }
 
         Optional<Profile> $pro = profileService.getProfileWithRelations(id);
         return $pro;
