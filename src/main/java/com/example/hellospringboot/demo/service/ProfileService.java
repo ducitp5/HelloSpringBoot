@@ -15,11 +15,17 @@ public class ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
 
-    public Optional<Profile> getProfileWithRelations(Long id) {
-        return profileRepository.findByidProfile(id);
-    }
-
     public List<Profile> getAllProfilesWithRelations() {
         return profileRepository.findAll();
     }
+
+    // Default: fetch only user
+    public Optional<Profile> getProfileWithRelations(Long id) {
+        return profileRepository.findByidProfile(id); // This only fetches user, not posts
+    }
+
+    public Optional<Profile> getProfileWithPosts(Long id) {
+        return profileRepository.findWithPostsByidProfile(id);
+    }
+
 }

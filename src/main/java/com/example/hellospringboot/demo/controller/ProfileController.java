@@ -34,7 +34,9 @@ public class ProfileController {
         return profileService.getProfileWithRelations(id);
     }
 
-        Optional<Profile> $pro = profileService.getProfileWithRelations(id);
-        return $pro;
+    // New API: returns profile with user + posts
+    @GetMapping("/{id}/with-posts")
+    public Optional<Profile> getProfileWithPosts(@PathVariable Long id) {
+        return profileService.getProfileWithPosts(id);
     }
 }

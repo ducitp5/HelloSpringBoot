@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository("UserRepository")
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @EntityGraph(attributePaths = {"posts", "posts.comments", "posts.comments.user"})
-    User findById(long id);
+//    @EntityGraph(attributePaths = {"posts"})
+//    User findById(long id);
 }

@@ -1,5 +1,6 @@
 package com.example.hellospringboot.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -22,11 +23,6 @@ public class User {
 
     public String name;
     public String email;
-
-//    public Long getId() { return id; }
-//    public String getName() { return name; }
-//    public String getEmail() { return email; }
-//    public Profile getProfile() { return profile; }
 
 //    @OneToMany(mappedBy = "autorUser", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("autorUser") // Avoid recursion

@@ -1,5 +1,6 @@
 package com.example.hellospringboot.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,27 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "demo_profiles")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "Profile.user",
+                attributeNodes = {
+                        @NamedAttributeNode("user")
+                }
+        ),
+//        @NamedEntityGraph(
+//                name = "Profile.userWithPosts",
+//                attributeNodes = {
+//                        @NamedAttributeNode("user"),
+//                        @NamedAttributeNode(value = "user", subgraph = "user.posts")
+//                },
+//                subgraphs = {
+//                        @NamedSubgraph(
+//                                name = "user.posts",
+//                                attributeNodes = @NamedAttributeNode("posts")
+//                        )
+//                }
+//        )
+})
 public class Profile {
 
     @Id
@@ -23,6 +45,7 @@ public class Profile {
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    @JsonIgnoreProperties({"posts"}) // Ignore posts from User serialization
     private User user;
 
     public Profile() {}
