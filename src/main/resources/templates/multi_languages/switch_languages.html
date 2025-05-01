@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title}">Title</title>
+</head>
+<body>
+<h1 th:text="#{title}"></h1>
+<p th:text="#{content}"></p>
+
+<!-- Switch Language Button -->
+<!--<a th:href="@{/multi_languages/home?lang=vi}" th:if="${#locale.language == 'en'}" th:text="#{button.switch}"></a>-->
+<!--<a th:href="@{/multi_languages/home?lang=en}" th:if="${#locale.language == 'vi'}" th:text="#{button.switch}"></a>-->
+
+<!-- Vietnamese Button -->
+<a th:href="@{/multi_languages/home(lang='vi')}"
+   th:text="#{button.vietnamese}">Vietnamese11</a>
+<br>
+<!-- English Button -->
+<a th:href="@{/multi_languages/home(lang='en')}"
+   th:text="#{button.english}">English11</a>
+<br>
+<!-- French Button -->
+<a th:href="@{/multi_languages/home(lang='fr')}"
+   th:text="#{button.french}">French11</a>
+
+</body>
+</html>
