@@ -1,17 +1,25 @@
 package com.example.hellospringboot.controller.api;
 
 import com.example.hellospringboot.model.User;
+import com.example.hellospringboot.dto.ResponseDTO;
+import com.example.hellospringboot.repository.UserRepository;
 import com.example.hellospringboot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController("userApiController")
 @RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -52,8 +60,25 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public String getUserById(@PathVariable Long id) {
-        return "User ID: " + id;
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/select")
+    public ResponseEntity<User> getUserWithSelectedRelationShipById(@PathVariable Long id) {
+        return userRepository.findById(id)
+            .map(user -> {
+                User responseUser = new User(user.getName(), user.getEmail());
+
+                responseUser.setId(user.getId()); // Ensure ID is set
+                responseUser.setProfile(user.getProfile()); // Include Profile
+//                responseUser.getPosts().addAll(user.getPosts()); // Include Posts
+
+                return ResponseEntity.ok(responseUser);
+            })
+            .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/create")
@@ -68,5 +93,25 @@ public class UserController {
             @RequestBody User user
     ) {
         return "Updating user ID: " + id + " with role: " + role + " to name: " + user.getName();
+    }
+
+
+    @PostMapping("/getdata")
+    public ResponseEntity<Map<String, Object>> getData(@RequestBody Map<String, Object> payload) {
+        String name = (String) payload.get("name");
+        int age = (int) payload.get("age");
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("receivedData", payload);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/getdto")
+    public ResponseEntity<ResponseDTO> getDTO(@RequestBody Map<String, Object> payload) {
+
+        ResponseEntity<ResponseDTO> $response = ResponseEntity.ok(new ResponseDTO("success", payload));
+        return $response;
     }
 }
