@@ -3,6 +3,7 @@ package org.o7planning.thymeleaf.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.o7planning.thymeleaf.config.RoutePrefix;
 import org.o7planning.thymeleaf.form.PersonForm;
 import org.o7planning.thymeleaf.model.Person;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(RoutePrefix.CONTEXT_PATH)
 public class MainController {
+
+    @ModelAttribute("prefix")
+    public String getContextPath() {
+        return RoutePrefix.CONTEXT_PATH;
+    }
 
     private static List<Person> persons = new ArrayList<Person>();
 
@@ -66,7 +73,7 @@ public class MainController {
             Person newPerson = new Person(firstName, lastName);
             persons.add(newPerson);
 
-            return "redirect:/personList";
+            return "redirect:"+RoutePrefix.CONTEXT_PATH+"/personList";
         }
 
         model.addAttribute("errorMessage", errorMessage);

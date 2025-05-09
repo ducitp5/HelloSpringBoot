@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Welcome</h1>
+<h1>Welcome from /thymeleaf</h1>
 <h2 th:utext="${message}">..!..</h2>
 
 <!--
@@ -17,7 +17,7 @@
 
    -->
 
-<a th:href="@{/personList}">Person List</a>
+<a th:href="@{__${prefix}__/personList}">Person List</a>
 
 </body>
 
