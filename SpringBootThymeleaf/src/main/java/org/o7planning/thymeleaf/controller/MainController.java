@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(RoutePrefix.CONTEXT_PATH)
 public class MainController {
 
-    @ModelAttribute("prefix")
-    public String getContextPath() {
-        return RoutePrefix.CONTEXT_PATH;
-    }
+//    @ModelAttribute("prefix")
+//    public String getContextPath() {
+//        return RoutePrefix.CONTEXT_PATH;
+//    }
 
     private static List<Person> persons = new ArrayList<Person>();
 
