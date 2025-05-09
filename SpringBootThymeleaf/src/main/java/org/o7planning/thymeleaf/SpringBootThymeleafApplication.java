@@ -1,4 +1,4 @@
-package org.o7planning.springbootthymeleaf;
+package org.o7planning.thymeleaf;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
