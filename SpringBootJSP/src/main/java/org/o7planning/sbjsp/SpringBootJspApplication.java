@@ -1,4 +1,4 @@
-package org.o7planning.springbootjsp;
+package org.o7planning.sbjsp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
