@@ -44,12 +44,11 @@ public class MainController {
         int idx = (int) (id % NAMES.length);
         String fullName = NAMES[idx] + " " + id;
 
-        String stringId = String.valueOf(id);
         employee.setId(id);
         employee.setEmpNo("E" + id);
         employee.setFullName(fullName);
         employee.setHireDate(new Date());
-        this.employeeRepository.insert(employee);
+        var res =  this.employeeRepository.insert(employee);
 
         return "Inserted: " + employee;
     }
