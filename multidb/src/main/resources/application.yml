@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    primary:
+      url: jdbc:mysql://localhost:3306/hello_spring_boot
+      username: root
+      password:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    secondary:
+      url: jdbc:mysql://localhost:3306/test
+      username: root
+      password:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
