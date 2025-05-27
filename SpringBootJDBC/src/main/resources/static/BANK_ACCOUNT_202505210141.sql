@@ -1,0 +1,11 @@
+CREATE TABLE `BANK_ACCOUNT` (
+  `ID` bigint NOT NULL,
+  `FULL_NAME` varchar(128) NOT NULL,
+  `BALANCE` double NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO hello_spring_boot.BANK_ACCOUNT (ID,FULL_NAME,BALANCE) VALUES
+	 (1,'Tom',1000.0),
+	 (2,'Jerry',2000.0),
+	 (3,'Donald',3000.0);
