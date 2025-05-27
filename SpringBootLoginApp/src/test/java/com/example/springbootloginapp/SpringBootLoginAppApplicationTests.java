@@ -1,0 +1,13 @@
+package com.example.springbootloginapp;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SpringBootLoginAppApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
