@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping("/profile")
-    @RequiredPermission("VIEW_PROFILE")
+    @RequiredPermission(value = "VIEW_PROFILE", name = "Duc")
     public String userProfile() {
         return "User Profile";
     }
