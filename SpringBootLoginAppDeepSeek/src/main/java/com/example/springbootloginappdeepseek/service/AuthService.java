@@ -1,5 +1,6 @@
 package com.example.springbootloginappdeepseek.service;
 
+import com.example.springbootloginappdeepseek.dto.LoginRequest;
 import com.example.springbootloginappdeepseek.entity.Permission;
 import com.example.springbootloginappdeepseek.entity.Role;
 import com.example.springbootloginappdeepseek.entity.User;
@@ -23,6 +24,18 @@ public class AuthService {
             return user.getPassword().equals(password) && user.isEnabled();
         }
         return false;
+    }
+
+    public User authenticate(LoginRequest loginRequest) {
+        Optional<User> userOpt = userRepository.findByUsername(loginRequest.getUsername());
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if (user.getPassword().equals(loginRequest.getPassword()) && user.isEnabled()) {
+                return user; // Authentication successful
+            }
+        }
+        return null; // Authentication failed
     }
 
     public boolean hasPermission(String username, String permissionName) {

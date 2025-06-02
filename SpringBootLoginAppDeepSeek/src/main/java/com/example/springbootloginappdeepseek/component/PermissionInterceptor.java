@@ -1,6 +1,7 @@
 package com.example.springbootloginappdeepseek.component;
 
 import com.example.springbootloginappdeepseek.service.AuthService;
+import com.example.springbootloginappdeepseek.service.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ public class PermissionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private AuthService authService;
+    @Autowired
+    private SessionService sessionService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -33,10 +36,13 @@ public class PermissionInterceptor implements HandlerInterceptor {
             }
 
             if (requiredPermission != null) {
-                String username = request.getHeader("X-Username"); // Hoặc lấy từ session/token
+                String token = request.getHeader("X-Auth-Token"); // Hoặc lấy từ session/token
+
+                String username = sessionService.getUserFromSession(token).getUsername();
+
                 if (username == null || !authService.hasPermission(username, requiredPermission)) {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");
-                    return false;
+//                    return true;
                 }
             }
         }
