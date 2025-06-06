@@ -18,6 +18,11 @@ public class SpringBootJpaMySqlApplication {
 
         UserRepository userRepository = context.getBean(UserRepository.class);
 
+//        print1(userRepository);
+        print2(userRepository);
+    }
+
+    public static void print1(UserRepository userRepository) {
         // Lấy ra toàn bộ user trong db
 //        userRepository.findAll().forEach(System.out::println);
 
@@ -45,6 +50,32 @@ public class SpringBootJpaMySqlApplication {
         // In ra kiểm tra xem userId còn tồn tại trong DB không
         User user3 = userRepository.findById(userId).orElse(null);
         System.out.println("User3: " + user3);
+    }
+    public static void print2(UserRepository userRepository) {
+
+        System.out.println("Tìm user với Agi trong khoảng (25 - 30)");
+        System.out.println("findAllByAgiBetween: ");
+        userRepository.findAllByAgiBetween(25, 30)
+                .forEach(System.out::println);
+
+        System.out.println("===========================================");
+        System.out.println("Tìm user với Agi trong lớn hơn 97");
+        System.out.println("findAllByAgiGreaterThan: ");
+        userRepository.findAllByAgiGreaterThan(97)
+                .forEach(System.out::println);
+
+        // Tìm kiếm tất cả theo Atk = 74
+        System.out.println("===========================================");
+        System.out.println("Tìm user với Atk = 74");
+        System.out.println("findAllByAtk: ");
+        userRepository.findAllByAtk(74)
+                .forEach(System.out::println);
+
+        System.out.println("===========================================");
+        System.out.println("Tìm User với def = 49");
+        System.out.println("SELECT u FROM User u WHERE u.def = :def");
+        User user = userRepository.findUserByDefQuery(49);
+        System.out.println("User: " + user);
     }
 
 }
