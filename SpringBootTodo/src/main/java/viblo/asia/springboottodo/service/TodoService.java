@@ -1,5 +1,7 @@
 package viblo.asia.springboottodo.service;
 
+import jakarta.annotation.Nullable;
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class TodoService {
     @Autowired
     private TodoValidator validator;
 
+    public List<Todo> findAll() {
+        return this.findAll(null);
+    }
     /**
      * Lấy ra danh sách List<Todo>
      *
