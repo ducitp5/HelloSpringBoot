@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import viblo.asia.springboottodo.Entity.Todo;
 
 @Repository
-public interface TodoRepository extends JpaRepository<Todo, Long> {
+public interface TodoRepository extends JpaRepository<Todo, Integer> {
 }

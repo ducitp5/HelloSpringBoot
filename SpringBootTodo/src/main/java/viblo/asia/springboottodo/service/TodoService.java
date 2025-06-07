@@ -47,5 +47,10 @@ public class TodoService {
         }
         return null;
     }
+
+    public Optional<Todo> findById(Integer id){
+
+        return todoRepository.findById(id);
+    }
 }
 

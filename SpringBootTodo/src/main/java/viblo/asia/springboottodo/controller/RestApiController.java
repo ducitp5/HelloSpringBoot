@@ -8,6 +8,9 @@ import viblo.asia.springboottodo.Entity.Todo;
 import viblo.asia.springboottodo.service.TodoService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -16,12 +19,15 @@ public class RestApiController{
     @Autowired
     private TodoService todoService;
 
-    List<Todo> todoList;
+    static List<Todo> todoList;
 
     @PostConstruct
     public void init(){
-        // Thêm null vào List để bỏ qua vị trí số 0;
-//        todoList.add(null);
+        todoList = IntStream.range(0, 10)
+                .mapToObj(i -> new Todo("title-" + i, "detail-" + i))
+                .collect(Collectors.toList());
+
+//        todoList =  todoService.findAll();
     }
 
     @GetMapping("/todo")
@@ -37,10 +43,18 @@ public class RestApiController{
         return ResponseEntity.ok().body(todo);
     }
 
+//    @GetMapping("/todo/{todoId}")
+//    public Optional<Todo> getTodo(@PathVariable(name = "todoId") Integer todoId){
+//
+//        var todo = todoService.findById(todoId);
+//
+//        return todo;
+//    }
+
     @GetMapping("/todo/{todoId}")
     public Todo getTodo(@PathVariable(name = "todoId") Integer todoId){
 
-        return todoList.get(todoId);
+        return  todoList.get(todoId);
     }
 
 }
