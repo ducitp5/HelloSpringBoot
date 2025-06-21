@@ -3,23 +3,24 @@ package o7planning.org.springbootregistrationapplication.validator;
 import o7planning.org.springbootregistrationapplication.dao.AppUserDAO;
 import o7planning.org.springbootregistrationapplication.formbean.AppUserForm;
 import o7planning.org.springbootregistrationapplication.model.AppUser;
-import org.hibernate.validator.internal.constraintvalidators.bv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.regex.Pattern;
+
 @Component
 public class AppUserValidator implements Validator {
 
-    // common-validator library.
-    private EmailValidator emailValidator = EmailValidator.getInstance(); //error here, cannot resolve methode getInstance
+    // Simple email regex pattern
+    private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@(.+)$";
+    private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
     @Autowired
     private AppUserDAO appUserDAO;
 
-    // The classes are supported by this validator.
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz == AppUserForm.class;
@@ -39,7 +40,7 @@ public class AppUserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender", "NotEmpty.appUserForm.gender");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "countryCode", "NotEmpty.appUserForm.countryCode");
 
-        if (!this.emailValidator.isValid(appUserForm.getEmail())) {
+        if (appUserForm.getEmail() != null && !pattern.matcher(appUserForm.getEmail()).matches()) {
             // Invalid email.
             errors.rejectValue("email", "Pattern.appUserForm.email");
         } else if (appUserForm.getUserId() == null) {
@@ -64,5 +65,4 @@ public class AppUserValidator implements Validator {
             }
         }
     }
-
 }
