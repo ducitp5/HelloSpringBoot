@@ -1,5 +1,7 @@
 package com.example.hellospringboot.demo.controller;
 
+import com.example.hellospringboot.demo.dto.ProfileBasicDTO;
+import com.example.hellospringboot.demo.dto.ProfileWithPostsDTO;
 import com.example.hellospringboot.demo.entity.Profile;
 import com.example.hellospringboot.demo.entity.User;
 import com.example.hellospringboot.demo.service.ProfileService;
@@ -38,5 +40,20 @@ public class ProfileController {
     @GetMapping("/{id}/with-posts")
     public Optional<Profile> getProfileWithPosts(@PathVariable Long id) {
         return profileService.getProfileWithPosts(id);
+    }
+
+    @GetMapping("/dto")
+    public List<ProfileBasicDTO> getDtoAllProfilesWithRelations() {
+        return profileService.getDtoAllProfilesWithRelations();
+    }
+
+    @GetMapping("/dto/{id}")
+    public ProfileBasicDTO getDtoProfileWithRelations(@PathVariable Long id) {
+        return profileService.getDtoProfileWithRelations(id);
+    }
+
+    @GetMapping("/dto/{id}/with-posts")
+    public ProfileWithPostsDTO getDtoProfileWithPosts(@PathVariable Long id) {
+        return profileService.getDtoProfileWithPosts(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.hellospringboot.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,4 +24,9 @@ public class Post {
     @ManyToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     User autorUser;
+
+    @OneToMany(mappedBy = "post")
+//    @JsonBackReference
+//    @JsonIgnore
+    List<Comment> comments;
 }
