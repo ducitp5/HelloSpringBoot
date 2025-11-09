@@ -3,6 +3,7 @@ package com.example.hellospringboot.demo.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,15 +19,26 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String content;
+    //    @Transient
+    public Long getUserId() {
+        return autorUser.getId();
+    }
+
+    @Column(nullable = false, columnDefinition = "TEXT", name = "content")
+    private String contentt;
+
+    @JsonProperty("post_content")
+    public String getContent() {
+        return this.contentt;
+    }
 
     @ManyToOne()
+    @JsonBackReference
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     User autorUser;
 
     @OneToMany(mappedBy = "post")
-//    @JsonBackReference
-//    @JsonIgnore
     List<Comment> comments;
+
+
 }
