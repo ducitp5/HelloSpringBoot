@@ -1,6 +1,7 @@
 package com.example.hellospringboot.demo.mapper;
 
 import com.example.hellospringboot.demo.dto.CommentDTO;
+import com.example.hellospringboot.demo.dto.PostClassDTO;
 import com.example.hellospringboot.demo.dto.PostDTO;
 import com.example.hellospringboot.demo.entity.Comment;
 import com.example.hellospringboot.demo.entity.Post;
@@ -38,4 +39,30 @@ public class PostMapper {
         );
     }
 
+    public static PostClassDTO toBasicClassDTO(Post post) {
+
+        List<Comment> comments = post.getComments();
+
+        return new PostClassDTO(
+                post.getId(),
+                post.getContent(),
+                comments.stream()
+                        .map(c -> new CommentDTO(c.getId(), c.getContent()))
+                        .collect(Collectors.toList())
+        );
+    }
+
+    public static PostClassDTO toPostClassDTOwithUserId(Post post) {
+
+        List<Comment> comments = post.getComments();
+
+        return new PostClassDTO(
+                post.getId(),
+                post.getContent(),
+                post.getUserId(),
+                comments.stream()
+                        .map(c -> new CommentDTO(c.getId(), c.getContent()))
+                        .collect(Collectors.toList())
+        );
+    }
 }
