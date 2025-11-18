@@ -41,12 +41,15 @@ public class PostService {
     public List<PostClassDTO> getDtoClassAllPost() {
         return postRepository.findAll()
                 .stream()
-                .map(PostMapper::toBasicClassDTO)
+                .map(post -> {
+                    return PostMapper.toBasicClassDTO(post);
+                })
                 .toList();
     }
 
     public PostClassDTO getPostClassDtoWithRelations(Long id) {
         Post post = postRepository.findById(id).get();;
+//        return PostMapper.toBasicClassDTO(post);
         return PostMapper.toPostClassDTOwithUserId(post);
     }
 }
